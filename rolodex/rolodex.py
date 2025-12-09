@@ -58,6 +58,19 @@ def find_contact(contacts): #finds a contact by name
         if not found: # If no contact was found after checking all contacts
             print("No contact found with that name.") # Print a message indicating no contact was found
 
+def view_contacts(contacts): #views all contacts
+    """Displays all contacts in the rolodex."""
+    if not contacts: # Check if the contacts list is empty
+        print("No contacts available.") # Print a message indicating no contacts are available
+        return
+
+    print("\n--- ALL CONTACTS ---") # Text to indicate the start of the contact list
+    for person in contacts: # Iterate through the list of contacts
+        print(f"Name: {person['name']}") # Print the name of the contact
+        print(f"Phone: {person['phone']}") # Print the phone number of the contact
+        print(f"Email: {person['email']}") # Print the email of the contact
+        print("--------------------") # Separator between contacts
+
 def delete_contact(contacts): #deletes a contact by name
     """Deletes a contact by name"""
     name_to_delete = input("Who do you want to delete?: ").lower()
@@ -69,31 +82,35 @@ def delete_contact(contacts): #deletes a contact by name
             save_data(contacts) # Save the updated list of contacts to the file
             print(f"{person['name']} deleted successfully!") # Confirmation message after deleting the contact
             found = True  # Set the flag to True if a contact is found
+            break
 
-def main(true=None): #main function to run the rolodex program
+def main(): #main function to run the rolodex program
     contacts = load_data() # Load existing contacts from the file
 
-    while true: # Start an infinite loop to keep the program running
+    while True: # Start an infinite loop to keep the program running
         print("\n=== 📇 THE ROLODEX ===") # Text to indicate the start of the Rolodex program
         print(f"You have {len(contacts)} contacts saved.") # Print the number of contacts saved
         print("1. Add Contact") # Option to add a new contact
         print("2. Find Contact") # Option to find a contact by name
-        print("3. Delete Contact") # Option to delete a contact by name
-        print("4. Exit") # Option to exit the program
+        print("3. View Contacts") # Option to view all contacts
+        print("4. Delete Contact") # Option to delete a contact by name
+        print("5. Exit") # Option to exit the program
 
-        choice = input("Choose (1/2/3/4): ") # Get the user's choice from input
+        choice = input("Choose (1/2/3/4/5): ") # Get the user's choice from input
 
         if choice == "1":
             add_contacts(contacts)  # Pass the list to the function
         elif choice == "2":
             find_contact(contacts)  # Pass the list to the function
         elif choice == "3":
-            delete_contact(contacts)  # Pass the list to the function
+            view_contacts(contacts)
         elif choice == "4":
+            delete_contact(contacts)  # Pass the list to the function
+        elif choice == "5":
             print("Goodbye! Data saved.")
             break  # <--- This Breaks the Loop and ends the program
         else:
             print("Invalid choice. Try again.")
 
 if __name__ == "__main__": # Check if the script is being run directly
-    main(True) # Call the main function to start the Rolodex program
+    main() # Call the main function to start the Rolodex program
